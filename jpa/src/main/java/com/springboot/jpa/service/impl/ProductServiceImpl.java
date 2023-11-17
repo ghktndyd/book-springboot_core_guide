@@ -26,8 +26,8 @@ public class ProductServiceImpl implements ProductService {
 
         productResponseDto.setNumber(product.getNumber());
         productResponseDto.setName(product.getName());
-        productResponseDto.setPrice(productResponseDto.getPrice());
-        productResponseDto.setStock(productResponseDto.getStock());
+        productResponseDto.setPrice(product.getPrice());
+        productResponseDto.setStock(product.getStock());
 
         return productResponseDto;
     }
@@ -63,8 +63,8 @@ public class ProductServiceImpl implements ProductService {
 
         productResponseDto.setNumber(chagedProduct.getNumber());
         productResponseDto.setName(chagedProduct.getName());
-        productResponseDto.setPrice(productResponseDto.getPrice());
-        productResponseDto.setStock(productResponseDto.getStock());
+        productResponseDto.setPrice(chagedProduct.getPrice());
+        productResponseDto.setStock(chagedProduct.getStock());
 
         return productResponseDto;
     }

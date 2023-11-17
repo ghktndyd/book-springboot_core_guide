@@ -13,19 +13,23 @@ import java.time.LocalDateTime;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
+    @SequenceGenerator(name = "product_seq", sequenceName = "PRODUCT_SEQ", allocationSize = 1)
+    @Column(name = "id")
     private Long number;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @Column(nullable = false)
-    private Integer  price;
+    @Column(name = "price", nullable = false)
+    private Integer price;
 
-    @Column(nullable = false)
-    private Integer  stock;
+    @Column(name = "stock", nullable = false)
+    private Integer stock;
 
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }

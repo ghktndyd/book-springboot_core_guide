@@ -1,10 +1,10 @@
-package com.springboot.jpa.data.service.impl;
+package com.springboot.jpa.service.impl;
 
 import com.springboot.jpa.data.dao.ProductDao;
 import com.springboot.jpa.data.dto.ProductDto;
 import com.springboot.jpa.data.dto.ProductResponseDto;
 import com.springboot.jpa.data.entity.Product;
-import com.springboot.jpa.data.service.ProductService;
+import com.springboot.jpa.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -57,11 +57,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto changeProductName(Long number, String name) throws Exception {
-        return null;
+        Product chagedProduct = productDao.updateProductName(number, name);
+
+        ProductResponseDto productResponseDto = new ProductResponseDto();
+
+        productResponseDto.setNumber(chagedProduct.getNumber());
+        productResponseDto.setName(chagedProduct.getName());
+        productResponseDto.setPrice(productResponseDto.getPrice());
+        productResponseDto.setStock(productResponseDto.getStock());
+
+        return productResponseDto;
     }
 
     @Override
     public void deleteProduct(Long number) throws Exception {
-
+        productDao.deleteProduct(number);
     }
 }

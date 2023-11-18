@@ -119,7 +119,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     //    /* 페이징 처리하기 */
     Page<Product> findByName(String name, Pageable pageable);
 
-    /* @Query 어노테이션을 활용한 메소드 작성 */
+    /* @Query 어노테이션을 활용한 메소드 작성 */ // -> JPQL을 작성하는R 방법
     @Query("SELECT p FROM Product p WHERE p.name = ?1")
     List<Product> findByName(String name);
 

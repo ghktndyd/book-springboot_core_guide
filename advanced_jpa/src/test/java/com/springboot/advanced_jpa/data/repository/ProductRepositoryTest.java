@@ -59,6 +59,7 @@ class ProductRepositoryTest {
 
         System.out.println(productRepository.findByName("펜", PageRequest.of(0, 2)));
 
+        // 페이징 쿼리 메서드 호출 방법
         Page<Product> productPage = productRepository.findByName("펜", PageRequest.of(0, 2));
 
         System.out.println(productPage.getContent());

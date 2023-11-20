@@ -1,6 +1,9 @@
 package com.springboot.advanced_jpa.data.repository;
 
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.springboot.advanced_jpa.data.entity.Product;
+import com.springboot.advanced_jpa.data.entity.QProduct;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,5 +81,51 @@ class ProductRepositoryTest {
         );
     }
 
+    @PersistenceContext
+    EntityManager entityManager;
 
+    @Test
+    void queryDslTest() {
+        JPAQuery<Product> query = new JPAQuery<>(entityManager);
+        QProduct qProduct = QProduct.product;
+
+        List<Product> productList = query.
+                from(qProduct)
+                .where(qProduct.name.eq("펜"))
+                .orderBy(qProduct.price.asc())
+                .fetch();
+
+        for (Product product : productList) {
+            System.out.println("-------------");
+            System.out.println();
+            System.out.println("product.getNumber() = " + product.getNumber());
+            System.out.println("product.getName() = " + product.getName());
+            System.out.println("product.getPrice() = " + product.getPrice());
+            System.out.println("product.getStock() = " + product.getStock());
+            System.out.println();
+            System.out.println("-------------");
+        }
+    }
+
+    @Test
+    void queryDslTest2() {
+        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(entityManager);
+        QProduct qProduct = QProduct.product;
+
+        List<Product> productList = jpaQueryFactory.selectFrom(qProduct)
+                .where(qProduct.name.eq("펜"))
+                .orderBy(qProduct.price.asc())
+                .fetch();
+
+        for (Product product : productList) {
+            System.out.println("-------------");
+            System.out.println();
+            System.out.println("product.getNumber() = " + product.getNumber());
+            System.out.println("product.getName() = " + product.getName());
+            System.out.println("product.getPrice() = " + product.getPrice());
+            System.out.println("product.getStock() = " + product.getStock());
+            System.out.println();
+            System.out.println("-------------");
+        }
+    }
 }
